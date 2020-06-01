@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:preferencias_de_usuario/widgets/menu_widget.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -6,9 +7,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('inicio'),
+        title: Text('home page'),
       ),
-      drawer: _crearDrawer(context),
+      drawer: MenuWidget(),
       body: 
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -20,44 +21,6 @@ class HomePage extends StatelessWidget {
             Text('nombre usuario'),
           ],
         ),
-    );
-  }
-
-  Drawer _crearDrawer(BuildContext context){
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            child: Container(),
-            decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage('assets/menu-img.jpg'), fit: BoxFit.cover)
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.ac_unit, color: Colors.blue,),
-            title: Text('uno'),
-            onTap: (){},
-          ),
-          ListTile(
-            leading: Icon(Icons.ac_unit, color: Colors.blue,),
-            title: Text('dos'),
-            onTap: (){},
-          ),
-          ListTile(
-            leading: Icon(Icons.ac_unit, color: Colors.blue,),
-            title: Text('people'),
-            onTap: (){},
-          ),
-          ListTile(
-            leading: Icon(Icons.settings, color: Colors.blue,),
-            title: Text('Settings'),
-            onTap: (){
-              Navigator.pushReplacementNamed(context, 'setting');
-            },
-          ),
-        ],
-      ) 
     );
   }
 }
