@@ -19,6 +19,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
+    prefs.ultimaPagina = 'setting';
     _colorSecundario = prefs.colorSecundario;
     _genero = prefs.genero;
     _nombre = prefs.nombre;
