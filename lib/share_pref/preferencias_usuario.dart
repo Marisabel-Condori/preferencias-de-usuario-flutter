@@ -35,7 +35,7 @@ class PreferenciasUsuario{
   }
 
   get nombre{
-    return _prefs.getString('nombre') ?? 'Pedro';
+    return _prefs.getString('nombre') ?? '';
   }
   set nombre(String value){
     _prefs.setString('nombre', value);

@@ -10,6 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('home page'),
+        backgroundColor: (prefs.colorSecundario) ? Colors.teal: Colors.blue,
       ),
       drawer: MenuWidget(),
       body: 

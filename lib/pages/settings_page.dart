@@ -9,20 +9,20 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final prefs = new PreferenciasUsuario();
+  
   bool _colorSecundario;
   int _genero;
   String _nombre;
-
-  final prefs = new PreferenciasUsuario();
 
   TextEditingController _textController;
   @override
   void initState() {
     super.initState();
-    bool _colorSecundario = prefs.colorSecundario;
-    int _genero = prefs.genero;
-    String _nombre = prefs.nombre;
-    _textController = TextEditingController(text: _nombre);
+    _colorSecundario = prefs.colorSecundario;
+    _genero = prefs.genero;
+    _nombre = prefs.nombre;
+    _textController = TextEditingController(text: prefs.nombre);
   }
 
   _setSelectedRadio(int valor) {
@@ -31,23 +31,12 @@ class _SettingsPageState extends State<SettingsPage> {
     setState(() {  });
   }
 
-  _setSelectedColorSec(bool valor) {
-    prefs.colorSecundario = valor;
-     _colorSecundario = prefs.colorSecundario;
-    setState(() {  });
-  }
-
-  _setSelectedNombre(String valor) {
-    prefs.nombre = valor;
-     _nombre = prefs.nombre;
-    setState(() {  });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('settings'),
+        backgroundColor: (prefs.colorSecundario) ? Colors.teal: Colors.blue,
       ),
       drawer: MenuWidget(),
       body: ListView(
@@ -58,7 +47,11 @@ class _SettingsPageState extends State<SettingsPage> {
           SwitchListTile(
             title: Text('Color secundario'),
             value: _colorSecundario, 
-            onChanged: _setSelectedColorSec,
+            onChanged: (value) {
+              _colorSecundario = value;
+              prefs.colorSecundario = value; 
+              setState(() {  });
+            },
           ),
           RadioListTile(
             title: Text('Masculino'),
@@ -75,12 +68,15 @@ class _SettingsPageState extends State<SettingsPage> {
           Container(
             padding: EdgeInsets.all(10.0),
             child: TextField(
-              controller: TextEditingController(text: _nombre),
+              controller: _textController,
               decoration: InputDecoration(
                 labelText: 'Nombre',
                 helperText: 'Nombre de la persona usando el telefono'
               ),
-              onChanged: _setSelectedNombre,
+              onChanged: (value){
+                prefs.nombre = value;
+                setState(() {  });
+              },
             ),
           )
         ],
