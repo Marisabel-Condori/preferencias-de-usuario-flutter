@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:preferencias_de_usuario/share_pref/preferencias_usuario.dart';
 import 'package:preferencias_de_usuario/widgets/menu_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
 
@@ -9,28 +9,37 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _colorSecundario = true;
-  int _genero = 1;
-  String _nombre = 'Pedro';
+  bool _colorSecundario;
+  int _genero;
+  String _nombre;
+
+  final prefs = new PreferenciasUsuario();
 
   TextEditingController _textController;
   @override
   void initState() {
     super.initState();
-    cargarPref();
+    bool _colorSecundario = prefs.colorSecundario;
+    int _genero = prefs.genero;
+    String _nombre = prefs.nombre;
     _textController = TextEditingController(text: _nombre);
   }
 
-  cargarPref() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _genero = prefs.getInt('genero');
+  _setSelectedRadio(int valor) {
+    prefs.genero = valor;
+     _genero = prefs.genero;
     setState(() {  });
   }
 
-  _setSelectedRadio(int valor) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('genero', valor);
-     _genero = valor;
+  _setSelectedColorSec(bool valor) {
+    prefs.colorSecundario = valor;
+     _colorSecundario = prefs.colorSecundario;
+    setState(() {  });
+  }
+
+  _setSelectedNombre(String valor) {
+    prefs.nombre = valor;
+     _nombre = prefs.nombre;
     setState(() {  });
   }
 
@@ -49,10 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
           SwitchListTile(
             title: Text('Color secundario'),
             value: _colorSecundario, 
-            onChanged: (value){
-              _colorSecundario = value;
-              setState(() {  });
-            }
+            onChanged: _setSelectedColorSec,
           ),
           RadioListTile(
             title: Text('Masculino'),
@@ -74,6 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 labelText: 'Nombre',
                 helperText: 'Nombre de la persona usando el telefono'
               ),
+              onChanged: _setSelectedNombre,
             ),
           )
         ],

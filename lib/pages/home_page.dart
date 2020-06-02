@@ -16,11 +16,11 @@ class HomePage extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('color secundario'),
+            Text('color secundario: ${prefs.colorSecundario}'),
             Divider(),
             Text('genero: ${prefs.genero}'),
             Divider(),
-            Text('nombre usuario'),
+            Text('nombre usuario: ${prefs.nombre}'),
           ],
         ),
     );
